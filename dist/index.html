@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introduction to webpack</title>
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <h1>webpack bundler</h1>
+            <ul>
+                <li><a href="">Installation</a></li>
+                <li><a href="">Setting up a demo project</a></li>
+                <li><a href="">Configuration</a></li>
+                <li><a href="">Transpiling SASS to CSS</a></li>
+                <li><a href="">PostCSS</a></li>
+                <li><a href="">Sourcemaps</a></li>
+            </ul>
+        </header>
+        <main>
+            <section class="intro">
+                <h2 class="intro__heading">Why use webpack?</h2>
+                <p class="intro__text">With webpack you can bundle together all the different JavaScript module files into one file.<br>It is smart because to load the page you only need to download one file. It is faster and thereby nicer for the user.</p>
+                <p class="intro__text">In the following we will take a look at how to install webpack, then move on to how to configure the program to using it in a simple demo project. We will then learn how to transpile SASS to CSS, how to create bundles with PostCSS and how to make a sourcemap of the project.</p>
+            </section>
+            <section class="installation">
+                <h2 class="installation__heading">Installation</h2>
+                <p class="installation__text">Create a folder for your project locally on your computer, open the folder in your coding program, then create a file called index.html and add the boilerplate.</p>
+                <p class="installation__text">Now start a terminal.</p>
+                <p class="installation__text">Write following 2 lines in the terminal:</p>
+                    <span>
+                        EKSEMPEL KODETEKST TERMINAL <br>
+                        npm init -y <br>
+                        npm install webpack webpack-cli --save-dev <br>
+                    </span>
+
+                    <section class="installation__subsection--small">
+                        <h3 class="installation__subheading">npm init -y command</h3>
+                        <p class="installation__text">npm is short for Node Package Manager and refers to a library of different code packages built for Node.js. <br> You can use these code packages in your projects by installing them via the terminal.</p>
+                        <p class="installation__text">init is an abbrevation of initialize and is used to initialize the project by creating a package.json file containing project-related information.</p>
+                        <p class="installation__text">The -y part of the command is short for yes and is added to indicate that we say yes to all the flags or questions that pop up.</p>
+                    </section>
+                    <section class="installation__subsection--small">
+                        <h3 class="installation__subheading">npm install webpack webpack-cli -- save-dev command</h3>
+                        <p class="installation__text">The npm install line lets us install npm packages. <br> With this line we target three different entities, namely the webpack package, the webpack-cli package and the --save-dev package.</p>
+                        <p class="installation__text">The webpack package contains the functionality allowing me to bundle modular JavaScript files together.</p>
+                        <p class="installation__text"> Installing the webpack-cli package allows me to later call the webpack from the command line in the terminal. This goes together with the webpack package.</p>
+                        <p class="installation__text">The --save-dev part of the code specifies that in this case I am only using webpack for bundling and that it is not included in my production build.</p>
+                        <p class="installation__text">Calling the install command creates a folder called node_modules in the root folder, which contains dependencies, all the different code needed for these packages to run. <br> The install command also creates a package-lock.json file, which keeps track of the current versions of every pack and its dependencies.</p>
+                    </section>
+            </section>
+            <section class="demo-project">
+                <h2 class="demo-project__heading">Setting up a demo project</h2>
+                <p class="demo-project__text">Now that we have installed the required npm packages to try out webpack, we will create a demo project.</p>
+                <section class="demo-project__subsection">
+                    <h3 class="demo-project__subheading">Setting up files for the demo project</h3>
+                    <p class="demo-project__text">Create a folder called src in the root folder of the project.</p>
+                    <p class="demo-project__text">Inside the src folder, create a file called index.js.</p>
+                    <section class="demo-project__subsection--small">
+                        <h3 class="demo-project__subheading">src folder</h3>
+                        <p class="demo-project__text">src is short for source, and this is a folder where all the original files are located before they are compiled/bundled into fewer files.</p>
+                    </section>
+                    <p class="demo-project__text">This is the default folder structure and names for webpack to use as an entrypoint. When using this setup we dont need to configure anything for webpack to run.</p>
+                    <p class="demo-project__text">In the index.js file, we can write some js to test whether what we are doing is working.</p>
+                    <p class="demo-project__text">Write the following in the index.js file:</p>
+                        <span>
+                            EKSEMPEL KODETEKST index.js
+                            const heading = document.querySelector('h1').innerText = 'Hello World';
+                        </span>
+                    <p class="demo-project__text">Now go back to the terminal and write:</p>
+                        <span>
+                            EKSEMPEL KODETEKST TERMINAL
+                            npx webpack
+                        </span>
+                    <section class="demo-project__subsection--small">
+                        <h3 class="demo-project__subheading">npx command</h3>
+                        <p class="demo-project__text">npx is an abbreviation of Node Package eXecute and will get the most current package of the package name it is called with and execute it.</p>
+                        <p class="demo-project__text">Calling npx creates a folder called dist in the root directory.</p>
+                    </section>
+                    <section class="demo-project__subsection--small">
+                        <h3 class="demo-project__subheading">dist folder</h3>
+                        <p class="demo-project__text">dist is short for distribution, and this is a folder where all the compiled/bundled files are located, being ready for production or public use.</p>
+                        <p class="demo-project__text">In the dist folder, a file called main.js has been generated. main.js contains a compilation of the code we wrote in index.js. <br> Only what is needed for the computer to run the project code is compiled into the main.js file. We can see that here it omitted the variable 'heading' that we declared in index.js. This is done to make the code as short and simple as possible while still being functional.</p>
+                    </section>
+                    <p>Move the index.html out of the root directory and into the dist folder</p>
+                    <p class="demo-project__text">In the terminal we can now see that webpack is working, we have no errors. <br> However, we do have a warning that we have set no 'mode' in configuration, but it will fallback to 'production', which, for now, is fine. </p>
+                </section>
+                <section class="demo-project__subsection">
+                    <h3 class="demo-project__subheading">Adding SASS</h3>
+                    <p class="demo-project__text">Now, inside the src folder, create a file called style.scss</p>
+                    <p class="demo-project__text">In style.scss, write some scss rules, e.g. the following:</p>
+                        <span>
+                            EKSEMPEL KODETEKST style.scss
+                            body {
+                                background-color: mediumgreen;
+                                h1 {
+                                    font-size: 4rem;
+                                    color: green;
+                                    text-align: center;
+                                }
+                            }
+                        </span>
+                    <p class="demo-project__text">Now the we link the css file by importing it into the index.js file.<br>In index.js, write the following at the very top of the file:</p>
+                        <span>
+                            EKSEMPEL KODETEKST index.js
+                            import './style.css';
+                        </span>
+                    <section class="demo-project__subsection--small">
+                        <h3 class="demo-project__subheading">import './style.css'; declaration</h3>
+                        <p class="demo-project__text">The import declaration is used to bind two separate files together, one being imported into the other.</p>
+                    </section>
+                    <p class="demo-project__text">Now when we run 'npx webpack' in the terminal, we get an error saying unexpected token. <br>That is because we need to set up some loaders and configuration for the JavaScript to be able to read the SASS file.</p>
+                </section>
+            </section>
+
+            <section class="configuration">
+                <h2 class="configuration__heading">Configuration</h2>
+                <p class="configuration__text">In order to show the SASS styling on the website, we need to install some loaders, add a configuration file to the project and use it to activate the loaders.</p>
+                <section class="configuration__subsection">
+                    <h3 class="configuration__subheading">Installing loaders</h3>
+                    <p class="configuration__text">In the terminal, write the following:</p>
+                    <span>
+                        npm install sass css-loader sass-loader --save-dev
+                    </span>
+                    <section class="configuration__subsection--small">
+                        <h3 class="configuration__subheading">sass</h3>
+                        <p class="configuration__text">We need to install sass to be able to use sass and scss files in the project.</p>
+                    </section>
+                    <section class="configuration__subsection--small">
+                        <h3 class="configuration__subheading">css-loader</h3>
+                        <p class="configuration__text">The css-loader is necessary to enable JavaScript to handle the css syntax without errors.</p>
+                    </section>
+                    <section class="configuration__subsection--small">
+                        <h3 class="configuration__subheading">sass-loader</h3>
+                        <p class="configuration__text">The sass-loader is necessary to enable JavaScript to handle the sass and scss syntax without errors.</p>
+                    </section>
+                    <section class="configuration__subsection">
+                        <h3 class="configuration__subheading">Adding a configuration file</h3>
+                        <p class="configuration__text">In the root directory, add a file named webpack.config.js</p>
+                        <p class="configuration__text">In the webpack.config.js file, write the following:</p>
+                        <span>
+                            module.exports = {
+                                module: {
+                                    rules: [
+                                        {
+                                            test: /\.scss$/i,
+                                            use: ["css-loader", "sass-loader"],
+                                        },
+                                    ],
+                                },
+                            }
+                        </span>
+                        <section class="configuration__subsection--small">
+                            <h3 class="configuration__subheading">module.exports = { }</h3>
+                            <p class="configuration__text">Because JavaScript originally had no concept of modules, a variety of different module formats have emerged over time. <br> The module format CommonJS is used in Node.js and npm. CommonJS uses the module.exports = { } syntax.</p>
+                        </section>
+                        <section class="configuration__subsection--small">
+                            <h3 class="configuration__subheading">module: { }</h3>
+                            <p class="configuration__text">Declaring the module as an object of an array called rules.</p>
+                        </section>
+                        <section class="configuration__subsection--small">
+                            <h3 class="configuration__subheading">rules: [ ]</h3>
+                            <p class="configuration__text">Declaring the rules as an array. The rules can modify how the object is created. <br> Each rule is an object telling webpack how to process a certain type of file. <br> This rule-object consists of two different rules concerned with how to process SASS-files.</p>
+                        </section>
+                        <section class="configuration__subsection--small">
+                            <h3 class="configuration__subheading">test: /\scss$/i</h3>
+                            <p class="configuration__text">Declaration of the test rule. This rule tells webpack what type of file it is by testing if the file-names matches a specific parameter. <br> Here the parameter is a regular expression checking if the file-name ends in scss.</p>
+                        </section>
+                        <section class="configuration__subsection--small">
+                            <h3 class="configuration__subheading">/\scss$/i</h3>
+                            <p class="configuration__text">The i means that the regular expression is case-insensitive</p>
+                        </section>
+                        <section class="configuration__subsection--small">
+                            <h3 class="configuration__subheading">use: ["css-loader", "sass-loader"]</h3>
+                            <p class="configuration__text">Declaration of the use rule. This rule applies the css-loader and the sass-loader to the module.</p>
+                        </section>
+                    </section>
+
+                    <p class="configuration__text"></p>
+                </section>
+                <section class="configuration__subsection--small">
+                    <h3 class="configuration__subheading"></h3>
+                    <p class="configuration__text"></p>
+                </section>
+            </section>
+        </main>
+        <footer>
+            <p>Emma Lindekilde Larsen</p>
+            <p>October 2024</p>
+        </footer>
+    </div>
+</body>
+</html>
