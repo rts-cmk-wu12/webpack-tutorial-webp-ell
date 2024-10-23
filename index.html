@@ -10,27 +10,27 @@
     <div class="wrapper">
         <header>
             <h1>webpack bundler</h1>
-            <!-- <ul>
+            <ul>
                 <li><a href="">Installation</a></li>
                 <li><a href="">Setting up a demo project</a></li>
                 <li><a href="">Configuration</a></li>
                 <li><a href="">Transpiling SASS to CSS</a></li>
                 <li><a href="">PostCSS</a></li>
                 <li><a href="">Sourcemaps</a></li>
-            </ul> -->
+            </ul>
         </header>
         <main>
             <section class="intro">
                 <h2 class="intro__heading">Why use webpack?</h2>
                 <p class="intro__text">With webpack you can bundle together all the different JavaScript module files into one file.<br>It is smart because to load the page you only need to download one file. It is faster and thereby nicer for the user.</p>
-                <p class="intro__text">In the following we will take a look at how to install webpack, then move on to how to configure the program to using it in a simple demo project. We will then learn how to transpile SASS to CSS, how to create bundles with PostCSS and how to make a sourcemap of the project.</p>
+                <p class="intro__text">In the following we will take a look at how to install webpack, then set up a demo project to learn how to configure webpack. We will then learn how to transpile SASS to CSS, how to create bundles with PostCSS and how to make a sourcemap of the project.</p>
             </section>
             <section class="installation">
                 <h2 class="installation__heading">Installation</h2>
                 <p class="installation__text">Create a folder for your project locally on your computer, open the folder in your coding program, then create a file called index.html and add the boilerplate. <br> Inside of body, make a h1 tag with some random text, e.g:</p>
                     <span>
-                        < body>
-                            < h1>ksdfjkdf< /h1>
+                        < body> <br>
+                            < h1>ksdfjkdf< /h1> <br>
                         < /body>
                     </span>
                 <p class="installation__text">Now start a terminal.</p>
@@ -38,7 +38,7 @@
                     <span>
                         EKSEMPEL KODETEKST TERMINAL <br>
                         npm init -y <br>
-                        npm install webpack webpack-cli --save-dev <br>
+                        npm install webpack webpack-cli --save-dev
                     </span>
                     <section class="installation__subsection--small">
                         <h3 class="installation__subheading">npm init -y command</h3>
@@ -70,12 +70,12 @@
                     <p class="demo-project__text">In the index.js file, we can write some js to test whether what we are doing is working.</p>
                     <p class="demo-project__text">Write the following in the index.js file:</p>
                         <span>
-                            EKSEMPEL KODETEKST index.js
+                            EKSEMPEL KODETEKST index.js <br>
                             const heading = document.querySelector('h1').innerText = 'Hello World';
                         </span>
                     <p class="demo-project__text">Now go back to the terminal and write:</p>
                         <span>
-                            EKSEMPEL KODETEKST TERMINAL
+                            EKSEMPEL KODETEKST TERMINAL <br>
                             npx webpack
                         </span>
                     <section class="demo-project__subsection--small">
@@ -96,19 +96,19 @@
                     <p class="demo-project__text">Now, inside the src folder, create a file called style.scss</p>
                     <p class="demo-project__text">In style.scss, write some scss rules, e.g. the following:</p>
                         <span>
-                            EKSEMPEL KODETEKST style.scss
-                            body {
-                                background-color: mediumgreen;
-                                h1 {
-                                    font-size: 4rem;
-                                    color: green;
-                                    text-align: center;
+                            EKSEMPEL KODETEKST style.scss <br>
+                            body { <br>
+                                background-color: mediumgreen; <br>
+                                h1 { <br>
+                                    font-size: 4rem; <br>
+                                    color: green; <br>
+                                    text-align: center; <br>
                                 }
                             }
                         </span>
                     <p class="demo-project__text">Now the we link the css file by importing it into the index.js file.<br>In index.js, write the following at the very top of the file:</p>
                         <span>
-                            EKSEMPEL KODETEKST index.js
+                            EKSEMPEL KODETEKST index.js <br>
                             import './style.scss';
                         </span>
                     <section class="demo-project__subsection--small">
@@ -145,15 +145,16 @@
                         <p class="configuration__text">In the root directory, add a file named webpack.config.js</p>
                         <p class="configuration__text">In the webpack.config.js file, write the following:</p>
                         <span>
-                            module.exports = {
-                                module: {
-                                    rules: [
-                                        {
-                                            test: /\.scss$/i,
-                                            use: ["css-loader", "sass-loader"],
-                                        },
-                                    ],
-                                },
+                            EKSEMPEL KODETEKST webpack.config.js <br>
+                            module.exports = { <br>
+                                module: { <br>
+                                    rules: [ <br>
+                                        { <br>
+                                            test: /\.scss$/i, <br>
+                                            use: ["css-loader", "sass-loader"], <br>
+                                        }, <br>
+                                    ], <br>
+                                }, <br>
                             }
                         </span>
                         <section class="configuration__subsection--small">
@@ -188,6 +189,7 @@
                 <p class="transpiling__text">We will now learn how to show the styling from our SASS file on the website by transpiling the SASS styling into a CSS file.</p>
                 <p class="transpiling__text">Write the following in the terminal:</p>
                     <span>
+                        EKSEMPEL KODETEKST TERMINALEN <br>
                         npm install mini-css-extract-plugin --save-dev
                     </span>
                 <section class="transpiling__subsection--small">
@@ -198,6 +200,7 @@
                     <h3 class="transpiling__subheading">Adding the plugin to the modifier file</h3>
                     <p class="transpiling__text">At the top of index.js, add the following line of code:</p>
                     <span>
+                        EKSEMPEL KODETEKST index.js <br>
                         const MiniCssExtractPlugin = require("mini-css-extract-plugin");
                     </span>
                     <section class="transpiling__subsection--small">
@@ -210,6 +213,7 @@
                     </section>
                     <p class="transpiling__text">On the first line inside the module.exports object, add the following code:</p>
                         <span>
+                            EKSEMPEL KODETEKST index.js <br>
                             plugins: [new MiniCssExtractPlugin()],
                         </span>
                     <section class="transpiling__subsection--small">
@@ -218,15 +222,18 @@
                     </section>
                     <p class="transpiling__text">In the use: property, add the following value:</p>
                         <span>
+                            EKSEMPEL KODETEKST index.js <br>
                             MiniCssExtractPlugin.loader
                         </span>
                     <p class="transpiling__text">so you end up with the following line of code:</p>
                         <span>
+                            EKSEMPEL KODETEKST index.js <br>
                             use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
                         </span>
                     <p class="transpiling__text">Now run npm webpack in the terminal. <br> We now get a generated css file in the dist folder called main.css containing the compiled styling from the style.scss file. <br> Use a link tag in head to link to style.css in index.html. Also  <br> Also use a script tag in index.html to link to main.js in index.html</p>
                         <span>
-                            < link rel="stylesheet" href="main.css">
+                            EKSEMPEL KODETEKST index.html <br>
+                            < link rel="stylesheet" href="main.css"> <br>
                             < script src="main.js" defer></script>
                         </span>
                     <p class="transpiling__text">Now the SASS styling is transpiled to CSS and shown on the webpage.</p>
