@@ -10,14 +10,14 @@
     <div class="wrapper">
         <header>
             <h1>webpack bundler</h1>
-            <ul>
+            <!-- <ul>
                 <li><a href="">Installation</a></li>
                 <li><a href="">Setting up a demo project</a></li>
                 <li><a href="">Configuration</a></li>
                 <li><a href="">Transpiling SASS to CSS</a></li>
                 <li><a href="">PostCSS</a></li>
                 <li><a href="">Sourcemaps</a></li>
-            </ul>
+            </ul> -->
         </header>
         <main>
             <section class="intro">
@@ -27,7 +27,12 @@
             </section>
             <section class="installation">
                 <h2 class="installation__heading">Installation</h2>
-                <p class="installation__text">Create a folder for your project locally on your computer, open the folder in your coding program, then create a file called index.html and add the boilerplate.</p>
+                <p class="installation__text">Create a folder for your project locally on your computer, open the folder in your coding program, then create a file called index.html and add the boilerplate. <br> Inside of body, make a h1 tag with some random text, e.g:</p>
+                    <span>
+                        < body>
+                            < h1>ksdfjkdf< /h1>
+                        < /body>
+                    </span>
                 <p class="installation__text">Now start a terminal.</p>
                 <p class="installation__text">Write following 2 lines in the terminal:</p>
                     <span>
@@ -35,7 +40,6 @@
                         npm init -y <br>
                         npm install webpack webpack-cli --save-dev <br>
                     </span>
-
                     <section class="installation__subsection--small">
                         <h3 class="installation__subheading">npm init -y command</h3>
                         <p class="installation__text">npm is short for Node Package Manager and refers to a library of different code packages built for Node.js. <br> You can use these code packages in your projects by installing them via the terminal.</p>
@@ -84,7 +88,7 @@
                         <p class="demo-project__text">dist is short for distribution, and this is a folder where all the compiled/bundled files are located, being ready for production or public use.</p>
                         <p class="demo-project__text">In the dist folder, a file called main.js has been generated. main.js contains a compilation of the code we wrote in index.js. <br> Only what is needed for the computer to run the project code is compiled into the main.js file. We can see that here it omitted the variable 'heading' that we declared in index.js. This is done to make the code as short and simple as possible while still being functional.</p>
                     </section>
-                    <p>Move the index.html out of the root directory and into the dist folder</p>
+                    <p class="demo-project__text">Move the index.html out of the root directory and into the dist folder.</p>
                     <p class="demo-project__text">In the terminal we can now see that webpack is working, we have no errors. <br> However, we do have a warning that we have set no 'mode' in configuration, but it will fallback to 'production', which, for now, is fine. </p>
                 </section>
                 <section class="demo-project__subsection">
@@ -105,7 +109,7 @@
                     <p class="demo-project__text">Now the we link the css file by importing it into the index.js file.<br>In index.js, write the following at the very top of the file:</p>
                         <span>
                             EKSEMPEL KODETEKST index.js
-                            import './style.css';
+                            import './style.scss';
                         </span>
                     <section class="demo-project__subsection--small">
                         <h3 class="demo-project__subheading">import './style.css'; declaration</h3>
@@ -169,21 +173,69 @@
                             <p class="configuration__text">Declaration of the test rule. This rule tells webpack what type of file it is by testing if the file-names matches a specific parameter. <br> Here the parameter is a regular expression checking if the file-name ends in scss.</p>
                         </section>
                         <section class="configuration__subsection--small">
-                            <h3 class="configuration__subheading">/\scss$/i</h3>
-                            <p class="configuration__text">The i means that the regular expression is case-insensitive</p>
+                            <h3 class="configuration__subheading">/\.(s[ac]|c)ss$/i</h3>
+                            <p class="configuration__text">A regular expression that matches on both css, sass and scss files.</p>
                         </section>
                         <section class="configuration__subsection--small">
                             <h3 class="configuration__subheading">use: ["css-loader", "sass-loader"]</h3>
                             <p class="configuration__text">Declaration of the use rule. This rule applies the css-loader and the sass-loader to the module.</p>
                         </section>
                     </section>
-
-                    <p class="configuration__text"></p>
                 </section>
-                <section class="configuration__subsection--small">
-                    <h3 class="configuration__subheading"></h3>
-                    <p class="configuration__text"></p>
+            </section>
+            <section class="transpiling">
+                <h2 class="transpiling__heading">Transpiling SASS to CSS</h2>
+                <p class="transpiling__text">We will now learn how to show the styling from our SASS file on the website by transpiling the SASS styling into a CSS file.</p>
+                <p class="transpiling__text">Write the following in the terminal:</p>
+                    <span>
+                        npm install mini-css-extract-plugin --save-dev
+                    </span>
+                <section class="transpiling__subsection--small">
+                    <h3 class="transpiling__subheading">mini-css-extract-plugin</h3>
+                    <p class="transpiling__text">A webpack plugin is a JavaScript library that adds functionality to the webpack.<br>This is a plugin that extracts CSS into separate files.</p>
                 </section>
+                <section class="transpiling__subsection">
+                    <h3 class="transpiling__subheading">Adding the plugin to the modifier file</h3>
+                    <p class="transpiling__text">At the top of index.js, add the following line of code:</p>
+                    <span>
+                        const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+                    </span>
+                    <section class="transpiling__subsection--small">
+                        <h3 class="transpiling__subheading">const MiniCssExtractPlugin</h3>
+                        <p class="transpiling__text">The variable name is spelled beginning with a capital letter because it is a class.</p>
+                    </section>
+                    <section class="transpiling__subsection--small">
+                        <h3 class="transpiling__subheading">require("mini-css-extract-plugin")</h3>
+                        <p class="transpiling__text">require( ) is a method used in webpack modules. It synchronously retrieves the exports from another module.</p>
+                    </section>
+                    <p class="transpiling__text">On the first line inside the module.exports object, add the following code:</p>
+                        <span>
+                            plugins: [new MiniCssExtractPlugin()],
+                        </span>
+                    <section class="transpiling__subsection--small">
+                        <h3 class="transpiling__subheading">plugins: [new MiniCssExtractPlugin()]</h3>
+                        <p class="transpiling__text">We use they keyword new on the variable to create a new instance of that class.</p>
+                    </section>
+                    <p class="transpiling__text">In the use: property, add the following value:</p>
+                        <span>
+                            MiniCssExtractPlugin.loader
+                        </span>
+                    <p class="transpiling__text">so you end up with the following line of code:</p>
+                        <span>
+                            use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
+                        </span>
+                    <p class="transpiling__text">Now run npm webpack in the terminal. <br> We now get a generated css file in the dist folder called main.css containing the compiled styling from the style.scss file. <br> Use a link tag in head to link to style.css in index.html. Also  <br> Also use a script tag in index.html to link to main.js in index.html</p>
+                        <span>
+                            < link rel="stylesheet" href="main.css">
+                            < script src="main.js" defer></script>
+                        </span>
+                    <p class="transpiling__text">Now the SASS styling is transpiled to CSS and shown on the webpage.</p>
+                </section>
+            </section>
+            <section class="post-css">
+                <h2 class="post-css__heading">Bundles with PostCSS</h2>
+                <h3 class="post-css__subheading"></h3>
+                <p class="post-css__text"></p>
             </section>
         </main>
         <footer>
